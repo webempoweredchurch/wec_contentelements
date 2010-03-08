@@ -1,0 +1,33 @@
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<vimeoID>
+				<TCEforms>
+					<label>Vimeo ID</label>
+					<config>
+						<type>input</type>
+					</config>
+				</TCEforms>
+			</vimeoID>
+			<height>
+				<TCEforms>
+					<label>Height</label>
+					<config>
+						<type>input</type>
+						<default>225</default>
+					</config>
+				</TCEforms>
+			</height>
+			<width>
+				<TCEforms>
+					<label>Width</label>
+					<config>
+						<type>input</type>
+						<default>400</default>
+					</config>
+				</TCEforms>
+			</width>
+		</el>
+	</ROOT>
+</T3DataStructure>
