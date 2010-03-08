@@ -67,13 +67,11 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 		foreach($fieldNameArr as $k => $v)	{
 			if (t3lib_div::testInt($v))	{
 				if (is_array($tempArr))	{
-					$c=1; // Start index with 1 for el values.
-					foreach($tempArr as $values)	{
-						if ($c==$v)	{
+					foreach($tempArr as $index => $values) {
+						if ($index==$v)	{
 							$tempArr=$values;
 							break;
 						}
-						$c++;
 					}
 				}
 			} else {
