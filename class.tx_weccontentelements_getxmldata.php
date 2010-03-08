@@ -80,7 +80,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 				$tempArr = $tempArr[$v];
 			}
 		}
-		if ($tempArr[$value]) {
+		if (isset($tempArr[$value])) {
 			return $tempArr[$value];
 		} else {
 			return $tempArr;
