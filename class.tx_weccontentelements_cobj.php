@@ -52,20 +52,21 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 	public function FFSECTION(array $conf) {
 		$sectionArray = $this->cObj->getData($conf['rootPath'], $this->cObj->data);
 		$content = '';
-		foreach ($sectionArray as $index => $section) {
-			$this->cObj->sectionRootPath = $conf['rootPath'] . '/' . $index;
-			$content .= $this->cObj->cObjGet($conf);
-		}
+		if ($this->cObj->checkIf($conf['if.'])) {
+			foreach ($sectionArray as $index => $section) {
+				$this->cObj->sectionRootPath = $conf['rootPath'] . '/' . $index;
+				$content .= $this->cObj->cObjGet($conf);
+			}
 
-		if ($conf['wrap']) {
-			$content = $this->cObj->wrap($content, $conf['wrap']);
-		}
-		if ($conf['stdWrap.']) {
-			$content = $this->cObj->stdWrap($content, $conf['stdWrap.']);
+			if ($conf['wrap']) {
+				$content = $this->cObj->wrap($content, $conf['wrap']);
+			}
+			if ($conf['stdWrap.']) {
+				$content = $this->cObj->stdWrap($content, $conf['stdWrap.']);
+			}
 		}
 
 		return $content;
-		
 	}
 
 	/**
