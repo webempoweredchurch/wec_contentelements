@@ -4,7 +4,7 @@
 		<el>
 			<youtubeID>
 				<TCEforms>
-					<label>YouTube ID</label>
+					<label>LLL:EXT:wec_contentelements/youtube/locallang.xml:flexform.youtube.youtubeID</label>
 					<config>
 						<type>input</type>
 					</config>
@@ -12,7 +12,7 @@
 			</youtubeID>
 			<height>
 				<TCEforms>
-					<label>Height</label>
+					<label>LLL:EXT:wec_contentelements/youtube/locallang.xml:flexform.youtube.height</label>
 					<config>
 						<type>input</type>
 						<default>525</default>
@@ -21,7 +21,7 @@
 			</height>
 			<width>
 				<TCEforms>
-					<label>Width</label>
+					<label>LLL:EXT:wec_contentelements/youtube/locallang.xml:flexform.youtube.width</label>
 					<config>
 						<type>input</type>
 						<default>873</default>

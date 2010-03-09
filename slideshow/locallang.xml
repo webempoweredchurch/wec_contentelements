@@ -8,6 +8,11 @@
 		<languageKey index="default" type="array">
 			<label index="tt_content.slideshow.title">Rotating Images</label>
 			<label index="tt_content.slideshow.description">jQuery-based slideshow useful for showing rotating photos or ads on the home page.</label>
+
+			<label index="flexform.slideshow.image">Image</label>
+			<label index="flexform.slideshow.imagePath">Image Path</label>
+			<label index="flexform.slideshow.imageTitle">Image Title</label>
+			
 		</languageKey>
 	</data>
 </T3locallang>

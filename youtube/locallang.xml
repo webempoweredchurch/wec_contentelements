@@ -8,6 +8,10 @@
 		<languageKey index="default" type="array">
 			<label index="tt_content.youtube.title">YouTube Video</label>
 			<label index="tt_content.youtube.description">Embeds a video from Youtube.com</label>
+
+			<label index="flexform.youtube.youtubeID">YouTube ID</label>
+			<label index="flexform.youtube.height">Height</label>
+			<label index="flexform.youtube.width">Width</label>
 		</languageKey>
 	</data>
 </T3locallang>

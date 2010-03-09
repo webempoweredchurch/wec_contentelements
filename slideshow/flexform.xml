@@ -9,12 +9,12 @@
 					<image>
 						<type>array</type>
 						<tx_templavoila>
-							<title>Image</title>
+							<title>LLL:EXT:wec_contentelements/slideshow/locallang.xml:flexform.slideshow.image</title>
 						</tx_templavoila>
 						<el>
 							<path>
 								<TCEforms>
-									<label>Image Path</label>
+									<label>LLL:EXT:wec_contentelements/slideshow/locallang.xml:flexform.slideshow.imagePath</label>
 									<config>
 										<type>input</type>
 										<wizards type="array">
@@ -36,7 +36,7 @@
 							</path>
 							<title>
 								<TCEforms>
-									<label>Image Title</label>
+									<label>LLL:EXT:wec_contentelements/slideshow/locallang.xml:flexform.slideshow.imageTitle</label>
 									<config type="array">
 										<type>input</type>
 									</config>

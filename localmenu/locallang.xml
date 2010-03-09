@@ -7,7 +7,7 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tt_content.localmenu.title">Local Menu</label>
-			<label index="tt_content.slideshow.description">Menu of pages on the second level and below. Useful in a sidebar.</label>
+			<label index="tt_content.localmenu.description">Menu showing up to three levels of pages in the current section. Useful in a sidebar.</label>
 		</languageKey>
 	</data>
 </T3locallang>

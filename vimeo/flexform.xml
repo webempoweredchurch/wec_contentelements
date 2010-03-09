@@ -4,7 +4,7 @@
 		<el>
 			<vimeoID>
 				<TCEforms>
-					<label>Vimeo ID</label>
+					<label>LLL:EXT:wec_contentelements/vimeo/locallang.xml:flexform.vimeo.vimeoID</label>
 					<config>
 						<type>input</type>
 					</config>
@@ -12,7 +12,7 @@
 			</vimeoID>
 			<height>
 				<TCEforms>
-					<label>Height</label>
+					<label>LLL:EXT:wec_contentelements/vimeo/locallang.xml:flexform.vimeo.height</label>
 					<config>
 						<type>input</type>
 						<default>225</default>
@@ -21,7 +21,7 @@
 			</height>
 			<width>
 				<TCEforms>
-					<label>Width</label>
+					<label>LLL:EXT:wec_contentelements/vimeo/locallang.xml:flexform.vimeo.width</label>
 					<config>
 						<type>input</type>
 						<default>400</default>
