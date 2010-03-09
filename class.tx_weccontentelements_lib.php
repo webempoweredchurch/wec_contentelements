@@ -46,8 +46,9 @@ class tx_weccontentelements_lib {
 			$icon
 		), 'CType');
 
-		t3lib_extMgm::addPageTSConfig(
-			'mod.wizards.newContentElement.wizardItems.' . $type . ' {
+
+		$TSConfig = 
+			'wizards.newContentElement.wizardItems.' . $type . ' {
 				elements {
 					' . $key . ' {
 						icon = ' . $wizardIcon . '
@@ -59,7 +60,11 @@ class tx_weccontentelements_lib {
 					}
 				}
 				show := addToList(' . $key .')
-			}'
+			}';
+
+		t3lib_extMgm::addPageTSConfig(
+			'mod.' . $TSConfig . chr(10) .
+			'templavoila.' . $TSConfig . chr(10)
 		);
 	}
 
