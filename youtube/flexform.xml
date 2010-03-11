@@ -1,5 +1,8 @@
 <T3DataStructure>
 	<ROOT>
+		<TCEforms>
+			<cshFile>LLL:EXT:wec_contentelements/youtube/locallang_csh.xml</cshFile>
+		</TCEforms>
 		<type>array</type>
 		<el>
 			<youtubeID>
