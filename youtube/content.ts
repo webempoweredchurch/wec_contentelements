@@ -8,7 +8,7 @@ tt_content.youtube {
 			<param name="movie" value="http://www.youtube-nocookie.com/v/{t3datastructure : pi_flexform->youtubeID}"></param>
 			<param name="allowFullScreen" value="true"></param>
 			<param name="allowscriptaccess" value="always"></param>
-			<embed src="http://www.youtube-nocookie.com/v/{t3datastructure : pi_flexform->youtubeID}" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="873" height="525"></embed>
+			<embed src="http://www.youtube-nocookie.com/v/{t3datastructure : pi_flexform->youtubeID}" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="{t3datastructure : pi_flexform->width}" height="{t3datastructure : pi_flexform->height}"></embed>
 		</object>
 	)
 	20.insertData = 1
