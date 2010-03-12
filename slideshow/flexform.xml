@@ -2,6 +2,16 @@
 	<ROOT>
 		<type>array</type>
 		<el>
+			<displayTime>
+				<TCEforms>
+					<label>Display Time (in milliseconds. 0 = no auto playback.)</label>
+					<config>
+						<type>input</type>
+						<size>6</size>
+						<default>3000</default>
+					</config>
+				</TCEforms>
+			</displayTime>
 			<transition>
 				<TCEforms>
 					<label>Transition</label>
@@ -79,6 +89,14 @@
 					<displayCond>FIELD:resolution:=:custom</displayCond>
 				</TCEforms>
 			</width>
+			<showThumbnails>
+				<TCEforms>
+					<label>Show Thumbnails</label>
+					<config type="array">
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</showThumbnails>
 			<images>
 				<section>1</section>
 				<type>array</type>
