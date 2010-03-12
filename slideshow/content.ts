@@ -25,7 +25,6 @@ tt_content.slideshow {
 			fx: '{ t3datastructure : pi_flexform->transition }',
 			fit: 1,
 			pause: 1,
-			height: 300
 		)
 		20.insertData = 1
 
@@ -36,16 +35,48 @@ tt_content.slideshow {
 		)
 	}
 
-	# Draw each image in the slideshow.
-	30 = FFSECTION
-	30.rootPath = t3datastructure : pi_flexform->images/el
+	30 = CASE
 	30 {
+		key.data = t3datastructure : pi_flexform->resolution
+		widescreen = LOAD_REGISTER
+		widescreen {
+			slideshowWidth.data = register : containerWidth
+			tempSlideshowHeight.data = register : containerWidth
+			tempSlideshowHeight.wrap = (|*.5625)
+			slideshowHeight.data = register : tempSlideshowHeight
+			slideshowHeight.prioriCalc = intval
+		}
+		standard = LOAD_REGISTER
+		standard {
+			slideshowWidth.data = register : containerWidth
+			tempSlideshowHeight.data = register:containerWidth
+			tempSlideshowHeight.wrap = (|*.75)+24
+			slideshowHeight.data = register:tempSlideshowHeight
+			slideshowHeight.prioriCalc = intval
+		}
+	 	custom = LOAD_REGISTER
+		custom {
+			slideshowWidth.data = t3datastructure : pi_flexform->width
+			slideshowHeight.data = t3datastructure : pi_flexform->height
+		}
+	}
+
+	# Draw each image in the slideshow.
+	40 = FFSECTION
+	40.rootPath = t3datastructure : pi_flexform->images/el
+	40 {
 		wrap = <div class="rotator"> | </div
 		
 		10 = IMAGE
 		10.file.import.data = flexformSection : image/el/path
-		10.file.width.data = register:containerWidth
-		10.file.height = 300c
+		10.file.width {
+			data = register : slideshowWidth
+			wrap = |c
+		}
+		10.file.height {
+			data = register : slideshowHeight
+			wrap = |c
+		}
 		10.stdWrap.typolink.parameter.data = flexformSection : image/el/link
 	}
 }

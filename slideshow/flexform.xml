@@ -36,6 +36,49 @@
 					</config>
 				</TCEforms>
 			</transition>
+			<resolution>
+				<TCEforms>
+					<label>Resolution</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">Standard (4x3)</numIndex>
+								<numIndex index="1">standard</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">Widescreen (16x9)</numIndex>
+								<numIndex index="1">widescreen</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">Custom</numIndex>
+								<numIndex index="1">custom</numIndex>
+							</numIndex>
+						</items>
+					</config>
+					<onChange>reload</onChange>
+				</TCEforms>
+			</resolution>
+			<height>
+				<TCEforms>
+					<label>Height</label>
+					<config type="array">
+						<type>input</type>
+						<default>300</default>
+					</config>
+					<displayCond>FIELD:resolution:=:custom</displayCond>
+				</TCEforms>
+			</height>
+			<width>
+				<TCEforms>
+					<label>Width (Leave blank for full width)</label>
+					<config type="array">
+						<type>input</type>
+						<default>400</default>
+					</config>
+					<displayCond>FIELD:resolution:=:custom</displayCond>
+				</TCEforms>
+			</width>
 			<images>
 				<section>1</section>
 				<type>array</type>
