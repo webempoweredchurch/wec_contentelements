@@ -9,8 +9,8 @@ tt_content.slideshow {
 		<script src="typo3conf/ext/wec_contentelements/slideshow/res/jquery.cycle.all.min.js"></script>
 		<style>
 			#nav { margin: 0; padding: 0; }
-			#nav li { width: 100px; float: left; margin: 8px 16px 8px 0; list-style: none }
-			#nav a { width: 100px; padding: 3px; display: block; border: 1px solid #ccc; }
+			#nav li { float: left; margin: 8px 8px 8px 0; list-style: none }
+			#nav a { padding: 3px; display: block; border: 1px solid #ccc; }
 			#nav a.activeSlide { background: #88f }
 			#nav a:focus { outline: none; }
 			#nav img { border: none; display: block }
@@ -86,6 +86,27 @@ tt_content.slideshow {
 		}
 	}
 
+	35 = CASE
+	35 {
+		key.data = t3datastructure : pi_flexform->thumbnails
+		none = LOAD_REGISTER
+		none {
+			thumbnailSize = 0
+		}
+		small = LOAD_REGISTER
+		small {
+			thumbnailSize = 25
+		}
+		medium = LOAD_REGISTER
+		medium {
+			thumbnailSize = 50
+		}
+		large = LOAD_REGISTER
+		large {
+			thumbnailSize = 100
+		}
+	}
+
 	# Draw each image in the slideshow.
 	40 = FFSECTION
 	40.rootPath = t3datastructure : pi_flexform->images/el
@@ -109,13 +130,19 @@ tt_content.slideshow {
 	50 = FFSECTION
 	50.rootPath = t3datastructure : pi_flexform->images/el
 	50 {
-		if.isTrue.data = t3datastructure : pi_flexform->showThumbnails
+		if.isTrue.data = register : thumbnailSize
 		stdWrap.dataWrap = <ul id="nav" style="width: {register : slideshowWidth}px"> | </ul>
 		
 		10 = IMAGE
 		10.file.import.data = flexformSection : image/el/path
-		10.file.width = 100c
-		10.file.height = 100c
+		10.file.width {
+			data = register : thumbnailSize
+			wrap = |c
+		}
+		10.file.height {
+			data = register : thumbnailSize
+			wrap = |c
+		}
 		10.wrap = <li><a href="#">|</a></li>
 	}
 	

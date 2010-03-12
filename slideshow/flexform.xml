@@ -89,14 +89,32 @@
 					<displayCond>FIELD:resolution:=:custom</displayCond>
 				</TCEforms>
 			</width>
-			<showThumbnails>
+			<thumbnails>
 				<TCEforms>
-					<label>Show Thumbnails</label>
+					<label>Thumbnails</label>
 					<config type="array">
-						<type>check</type>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">None</numIndex>
+								<numIndex index="1">none</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">Small</numIndex>
+								<numIndex index="1">small</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">Medium</numIndex>
+								<numIndex index="1">medium</numIndex>
+							</numIndex>
+							<numIndex index="3" type="array">
+								<numIndex index="0">Large</numIndex>
+								<numIndex index="1">large</numIndex>
+							</numIndex>
+						</items>
 					</config>
 				</TCEforms>
-			</showThumbnails>
+			</thumbnails>
 			<images>
 				<section>1</section>
 				<type>array</type>
