@@ -37,7 +37,7 @@ class tx_weccontentelements_lib {
 			$TCA['tt_content']['types'][$key] = array(
 				'showitem' => 'CType;;4;;1-1-1, hidden, header;;3;;2-2-2, linkToTop;;;;3-3-3, --div--;LLL:EXT:cms/locallang_tca.xml:pages.tabs.access, starttime, endtime'
 			);
-			
+
 		}
 
 		t3lib_extMgm::addPlugin(array(
@@ -47,7 +47,7 @@ class tx_weccontentelements_lib {
 		), 'CType');
 
 
-		$TSConfig = 
+		$TSConfig =
 			'wizards.newContentElement.wizardItems.' . $type . ' {
 				elements {
 					' . $key . ' {
@@ -82,8 +82,12 @@ class tx_weccontentelements_lib {
 			', 43);
 		}
 	}
-	
 
+
+}
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/wec_contentelements/class.tx_weccontentelements_lib.php']){
+     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/wec_contentelements/class.tx_weccontentelements_lib.php']);
 }
 
 ?>

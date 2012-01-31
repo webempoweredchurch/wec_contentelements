@@ -86,4 +86,8 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	}
 }
 
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/wec_contentelements/class.tx_weccontentelements_getxmldata.php']){
+     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/wec_contentelements/class.tx_weccontentelements_getxmldata.php']);
+}
+
 ?>
