@@ -72,7 +72,7 @@ class tx_weccontentelements_lib {
 		), 'CType');
 
 
-		$TSConfig = 
+		$TSConfig =
 			'wizards.newContentElement.wizardItems.' . $type . ' {
 				elements {
 					' . $key . ' {
@@ -91,12 +91,17 @@ class tx_weccontentelements_lib {
 			'mod.' . $TSConfig . chr(10) .
 			'templavoila.' . $TSConfig . chr(10)
 		);
+
+		self::addPageTSConfig($extensionKey, $key);
 	}
 
 	public function addTyposcript($extensionKey, $key, $typoScriptPath = '') {
 		if (!$typoScriptPath) {
 			$typoScriptPath = t3lib_extMgm::extPath($extensionKey) . $key . '/content.ts';
 		}
+
+		$typoScriptConstantsPath = dirname($typoScriptPath) . '/constants.ts';
+		self::addTypoScriptConstants($extensionKey, $key, $typoScriptConstantsPath);
 
 		$type = 'CType';
 		$typoScriptContent = t3lib_div::getURL($typoScriptPath);
@@ -108,6 +113,30 @@ class tx_weccontentelements_lib {
 		}
 	}
 
+	protected function addTypoScriptConstants($extensionKey, $key, $typoScriptPath = '') {
+		if (!$typoScriptPath) {
+			$typoScriptPath = t3lib_extMgm::extPath($extensionKey) . $key . '/constants.ts';
+		}
+
+		$typoScriptContent = t3lib_div::getURL($typoScriptPath);
+		if ($typoScriptContent) {
+			t3lib_extMgm::addTypoScript($key, 'constants', '
+			# Setting ' . $key . ' TypoScript
+			' . $typoScriptContent . '
+			', 43);
+		}
+	}
+
+	public function addPageTSConfig($extensionKey, $key, $pageTSConfigPath = '') {
+		if (!$pageTSConfigPath) {
+			$pageTSConfigPath = t3lib_extMgm::extPath($extensionKey) . $key . '/pagetsconfig.ts';
+		}
+
+		$pageTSConfig = t3lib_div::getUrl($pageTSConfigPath);
+		if ($pageTSConfig) {
+			t3lib_extMgm::addPageTSConfig($pageTSConfig);
+		}
+	}
 
 	/**
 	 * Adds a Fluid-based template file.
