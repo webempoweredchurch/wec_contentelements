@@ -1,15 +1,10 @@
 tt_content.vimeo = COA
 tt_content.vimeo {
 	10 = < lib.stdheader
-	
+
 	20 = TEXT
 	20.value (
-		<object width="{t3datastructure : pi_flexform->width}" height="{t3datastructure : pi_flexform->height}">
-			<param name="allowfullscreen" value="true" />
-			<param name="allowscriptaccess" value="always" />
-			<param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id={t3datastructure : pi_flexform->vimeoID}&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" />
-			<embed src="http://vimeo.com/moogaloop.swf?clip_id={t3datastructure : pi_flexform->vimeoID}&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="{t3datastructure : pi_flexform->width}" height="{t3datastructure : pi_flexform->height}"></embed>
-		</object>
+		<iframe src="http://player.vimeo.com/video/{t3datastructure : pi_flexform->vimeoID}?title=0&amp;byline=0&amp;portrait=0" width="{t3datastructure : pi_flexform->width}" height="{t3datastructure : pi_flexform->height}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 	)
 	20.insertData = 1
 }
