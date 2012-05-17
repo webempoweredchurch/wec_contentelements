@@ -23,9 +23,36 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 			case 'HEADERDATA':
 				$content = $this->HEADERDATA($configuration);
 				break;
+			case 'INCLUDEJSLIBS':
+				$content = $this->INCLUDEJSLIBS($configuration);
+				break;
 		}
 
 		return $content;
+	}
+
+	protected function INCLUDEJSLIBS(array $conf) {
+		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+
+		foreach ($conf as $key => $JSfile) {
+			if (!is_array($JSfile)) {
+				$ss = $conf[$key . '.']['external'] ? $JSfile : $GLOBALS['TSFE']->tmpl->getFileName($JSfile);
+				if ($ss) {
+					$type = $conf[$key . '.']['type'];
+					if (!$type) {
+						$type = 'text/javascript';
+					}
+					$pageRenderer->addJsLibrary(
+						htmlspecialchars($key),
+						htmlspecialchars($ss),
+						htmlspecialchars($type),
+						$conf[$key . '.']['compress'] ? TRUE : FALSE,
+						$conf[$key . '.']['forceOnTop'] ? TRUE : FALSE,
+						$conf[$key . '.']['allWrap']
+					);
+				}
+			}
+		}
 	}
 
 	/**
@@ -53,7 +80,9 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 		$sectionArray = $this->cObj->getData($conf['rootPath'], $this->cObj->data);
 		$content = '';
 		if ($this->cObj->checkIf($conf['if.'])) {
+			$counter = 1;
 			foreach ($sectionArray as $index => $section) {
+				$GLOBALS['TSFE']->register['FFSECTION_COUNTER'] = $counter++;
 				$this->cObj->sectionRootPath = $conf['rootPath'] . '/' . $index;
 				$content .= $this->cObj->cObjGet($conf);
 			}
@@ -86,10 +115,6 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 			}
 		}
 	}
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/wec_contentelements/class.tx_weccontentelements_cobj.php']){
-     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/wec_contentelements/class.tx_weccontentelements_cobj.php']);
 }
 
 ?>
