@@ -21,9 +21,18 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 			$type = strtolower(trim($parts[0]));
 			switch ($type) {
 				case 't3datastructure':
-					list($fieldName, $path) = explode('->', $key, 2);
+					$elements = explode('->', $key, 3);
+					if (count($elements) === 3) {
+						$fieldName = $elements[0];
+						$sheet = $elements[1];
+						$path = $elements[2];
+					} else {
+						$fieldName = $elements[0];
+						$sheet = 'sDEF';
+						$path = $elements[1];
+					}
 					$flexFormArray = t3lib_div::xml2array($fields[$fieldName]);
-					$returnValue = $this->getFlexformValue($flexFormArray, $path);
+					$returnValue = $this->getFlexformValue($flexFormArray, $path, $sheet);
 					break;
 				case 'flexformsection':
 					$rootPath = $parentObject->sectionRootPath;
