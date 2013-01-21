@@ -83,7 +83,7 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 			$counter = 1;
 			foreach ($sectionArray as $index => $section) {
 				$GLOBALS['TSFE']->register['FFSECTION_COUNTER'] = $counter++;
-				$this->cObj->sectionRootPath = $conf['rootPath'] . '/' . $index;
+				$GLOBALS['TSFE']->register['FFSECTION_ROOTPATH'] = $conf['rootPath'] . '/' . $index;
 				$content .= $this->cObj->cObjGet($conf);
 			}
 
@@ -93,6 +93,9 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 			if ($conf['stdWrap.']) {
 				$content = $this->cObj->stdWrap($content, $conf['stdWrap.']);
 			}
+
+			unset($GLOBALS['TSFE']->register['FFSECTION_COUNTER']);
+			unset($GLOBALS['TSFE']->register['FFSECTION_ROOTPATH']);
 		}
 
 		return $content;

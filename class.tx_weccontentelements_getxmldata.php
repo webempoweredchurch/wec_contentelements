@@ -35,7 +35,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 					$returnValue = $this->getFlexformValue($flexFormArray, $path, $sheet);
 					break;
 				case 'flexformsection':
-					$rootPath = $parentObject->sectionRootPath;
+					$rootPath = $GLOBALS['TSFE']->register['FFSECTION_ROOTPATH'];
 					$returnValue = $parentObject->getData($rootPath . '/' . $key, $parentObject->data);
 					break;
 			}
