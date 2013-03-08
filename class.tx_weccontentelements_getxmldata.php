@@ -54,7 +54,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	 * @return	string		The content.
 	 * @see tslib_pibase->pi_getFFvalue()
 	 */
-	function getFlexFormValue($flexFormArray, $fieldName, $sheet='sDEF', $lang='lDEF', $value='vDEF') {
+	public function getFlexFormValue($flexFormArray, $fieldName, $sheet='sDEF', $lang='lDEF', $value='vDEF') {
 		$sheetArray = is_array($flexFormArray) ? $flexFormArray['data'][$sheet][$lang] : '';
 		if (is_array($sheetArray)) {
 			return self::getFlexFormValueFromSheetArray($sheetArray, explode('/',$fieldName), $value);
@@ -71,10 +71,10 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	 * @access private
 	 * @see pi_getFFvalueFromSheetArray()
 	 */
-	function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
+	public function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
 		$tempArr = $sheetArray;
-		foreach($fieldNameArr as $k => $v)	{
-			if (t3lib_div::testInt($v))	{
+		foreach($fieldNameArr as $k => $v) {
+			if ($this->canBeInterpretedAsInteger($v)) {
 				if (is_array($tempArr))	{
 					foreach($tempArr as $index => $values) {
 						if ($index==$v)	{
@@ -92,6 +92,18 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 		} else {
 			return $tempArr;
 		}
+	}
+
+	/**
+	 * Checks whether the provided value is an integer
+	 *
+	 * @param mixed $value
+	 * @return boolean
+	 */
+	protected function canBeInterpretedAsInteger($value) {
+		return class_exists('\TYPO3\CMS\Core\Utility\MathUtility')
+		       ? \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($value)
+		       : t3lib_div::testInt($value);
 	}
 }
 
