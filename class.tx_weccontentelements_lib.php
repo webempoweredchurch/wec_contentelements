@@ -27,10 +27,9 @@ class tx_weccontentelements_lib {
 			$flexformPath = 'FILE:EXT:' . $extensionKey . '/' . $key . '/flexform.xml';
 		}
 
-
 		if ($flexformPath) {
 			$TCA['tt_content']['columns']['pi_flexform']['config']['ds']['*,' . $key] = $flexformPath;
-			if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000) {
+			if (self::getTYPO3VersionAsInteger(TYPO3_version) >= 4005000) {
 				$TCA['tt_content']['types'][$key]['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,
 																	--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,
 																	--div--;' . $title . ',
@@ -48,7 +47,7 @@ class tx_weccontentelements_lib {
 				);
 			}
 		} else {
-			if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000) {
+			if (self::getTYPO3VersionAsInteger(TYPO3_version) >= 4005000) {
 				$TCA['tt_content']['types'][$key]['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,
 																	--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,
 																	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,
@@ -172,7 +171,7 @@ class tx_weccontentelements_lib {
 		$customTypoScriptPath = t3lib_extMgm::extPath($extensionKey) . $key . '/content.ts';
 		if (file_exists($customTypoScriptPath)) {
 			// Set up Fluid variables as temp.fluidVariables and then append the custom TypoScript.
- 			$typoScriptContent .= chr(10) . t3lib_div::getURL($customTypoScriptPath);
+			$typoScriptContent .= chr(10) . t3lib_div::getURL($customTypoScriptPath);
 		}
 
 		t3lib_extMgm::addTypoScript($key, 'setup', '
@@ -202,6 +201,12 @@ class tx_weccontentelements_lib {
 
 		$output = implode(chr(10), $cObjects);
 		return $output;
+	}
+
+	protected function getTYPO3VersionAsInteger() {
+		return class_exists('\TYPO3\CMS\Core\Utility\VersionNumberUtility')
+		       ? \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version)
+		       : t3lib_div::int_from_ver(TYPO3_version);
 	}
 
 }
