@@ -1,7 +1,5 @@
 <?php
 
-require_once(t3lib_extMgm::extPath('cms') . 'tslib/interfaces/interface.tslib_content_getdatahook.php');
-
 class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 
 	/**
