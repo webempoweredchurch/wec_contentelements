@@ -63,7 +63,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
 		$tempArr = $sheetArray;
 		foreach($fieldNameArr as $k => $v)	{
-			if (t3lib_div::testInt($v))	{
+			if (self::canBeInterpretedAsInteger($v)) {
 				if (is_array($tempArr))	{
 					foreach($tempArr as $index => $values) {
 						if ($index==$v)	{
@@ -81,6 +81,18 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 		} else {
 			return $tempArr;
 		}
+	}
+
+	protected function canBeInterpretedAsInteger($value) {
+		if (class_exists('TYPO3\\CMS\\Core\\Utility\\MathUtility')) {
+			$result = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($var);
+		} elseif (class_exists('t3lib_utility_Math')) {
+			$result = t3lib_utility_Math::canBeInterpretedAsInteger($var);
+		} else {
+			$result = t3lib_div::testInt($var);
+		}
+		return $result;
+
 	}
 }
 
