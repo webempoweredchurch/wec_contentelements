@@ -1,7 +1,5 @@
 <?php
 
-require_once(PATH_tslib . 'interfaces/interface.tslib_content_cobjgetsinglehook.php');
-
 class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 	protected $cObj;
 

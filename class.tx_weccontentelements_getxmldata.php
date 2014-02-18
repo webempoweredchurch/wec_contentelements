@@ -1,7 +1,5 @@
 <?php
 
-require_once(t3lib_extMgm::extPath('cms') . 'tslib/interfaces/interface.tslib_content_getdatahook.php');
-
 class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 
 	/**
@@ -73,8 +71,8 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	 */
 	public function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
 		$tempArr = $sheetArray;
-		foreach($fieldNameArr as $k => $v) {
-			if ($this->canBeInterpretedAsInteger($v)) {
+		foreach($fieldNameArr as $k => $v)	{
+			if (self::canBeInterpretedAsInteger($v)) {
 				if (is_array($tempArr))	{
 					foreach($tempArr as $index => $values) {
 						if ($index==$v)	{
@@ -101,9 +99,14 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	 * @return boolean
 	 */
 	protected function canBeInterpretedAsInteger($value) {
-		return class_exists('\TYPO3\CMS\Core\Utility\MathUtility')
-		       ? \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($value)
-		       : t3lib_div::testInt($value);
+		if (class_exists('TYPO3\\CMS\\Core\\Utility\\MathUtility')) {
+			$result = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($var);
+		} elseif (class_exists('t3lib_utility_Math')) {
+			$result = t3lib_utility_Math::canBeInterpretedAsInteger($var);
+		} else {
+			$result = t3lib_div::testInt($var);
+		}
+		return $result;
 	}
 }
 
