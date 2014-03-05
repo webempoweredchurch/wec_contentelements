@@ -12,7 +12,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	 * @param	tslib_cObj	parent content object
 	 * @return	string		get data result
 	 */
-	public function getDataExtension($getDataString, array $fields, $sectionValue, $returnValue, tslib_cObj &$parentObject) {
+	public function getDataExtension($getDataString, array $fields, $sectionValue, $returnValue, &$parentObject) {
 		$parts = explode(':', $sectionValue, 2);
 		$key = trim($parts[1]);
 		if ((string) $key!='') {
