@@ -9,10 +9,10 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	 * @param	array		current field-array
 	 * @param	string		currently examined section value of the getData request e.g. "field:title"
 	 * @param	string		current returnValue that was processed so far by getData
-	 * @param	tslib_cObj	parent content object
+	 * @param	\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer	parent content object
 	 * @return	string		get data result
 	 */
-	public function getDataExtension($getDataString, array $fields, $sectionValue, $returnValue, &$parentObject) {
+	public function getDataExtension($getDataString, array $fields, $sectionValue, $returnValue, \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer &$parentObject) {
 		$parts = explode(':', $sectionValue, 2);
 		$key = trim($parts[1]);
 		if ((string) $key!='') {
