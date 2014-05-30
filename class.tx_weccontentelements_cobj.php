@@ -24,6 +24,18 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 			case 'INCLUDEJSLIBS':
 				$content = $this->INCLUDEJSLIBS($configuration);
 				break;
+			case 'INCLUDEJS':
+				$content = $this->INCLUDEJS($configuration);
+				break;
+			case 'INLINEJS':
+				$content = $this->INLINEJS($configuration);
+				break;
+			case 'INCLUDECSS':
+				$content = $this->INCLUDECSS($configuration);
+				break;	
+			case 'CSSINLINE':
+				$content = $this->CSSINLINE($configuration);
+				break;	
 		}
 
 		return $content;
@@ -33,25 +45,166 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
 
 		foreach ($conf as $key => $JSfile) {
+
+			// StdWrap the JS file.
+			$JSfile = $this->cObj->stdWrap($conf[$key], $conf[$key . '.']);
+
+			// If the key is numeric we should generate a new key to avoid duplication
+			if (is_numeric($key)) {
+				$key = md5($JSfile);
+			}
+
 			if (!is_array($JSfile)) {
+				if (isset($conf[$key . '.']['if.']) && !$GLOBALS['TSFE']->cObj->checkIf($conf[($key . '.')]['if.'])) {
+					continue;
+				}
 				$ss = $conf[$key . '.']['external'] ? $JSfile : $GLOBALS['TSFE']->tmpl->getFileName($JSfile);
 				if ($ss) {
-					$type = $conf[$key . '.']['type'];
+					$jsFileConfig = $conf[$key . '.'];
+					$type = $jsFileConfig['type'];
 					if (!$type) {
 						$type = 'text/javascript';
 					}
+
 					$pageRenderer->addJsLibrary(
-						htmlspecialchars($key),
-						htmlspecialchars($ss),
-						htmlspecialchars($type),
-						$conf[$key . '.']['compress'] ? TRUE : FALSE,
-						$conf[$key . '.']['forceOnTop'] ? TRUE : FALSE,
-						$conf[$key . '.']['allWrap']
+						$key,
+						$ss,
+						$type,
+						empty($jsFileConfig['disableCompression']),
+						$jsFileConfig['forceOnTop'] ? TRUE : FALSE,
+						$jsFileConfig['allWrap'],
+						$jsFileConfig['excludeFromConcatenation'] ? TRUE : FALSE,
+						$jsFileConfig['allWrap.']['splitChar']
 					);
+					unset($jsFileConfig);
 				}
 			}
 		}
 	}
+
+	protected function INCLUDEJS(array $conf) {
+		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+
+		foreach ($conf as $key => $JSfile) {
+
+			// StdWrap the JS file.
+			$JSfile = $this->cObj->stdWrap($conf[$key], $conf[$key . '.']);
+
+			// If the key is numeric we should generate a new key to avoid duplication
+			if (is_numeric($key)) {
+				$key = md5($JSfile);
+			}
+
+			if (!is_array($JSfile)) {
+				if (isset($conf[$key . '.']['if.']) && !$GLOBALS['TSFE']->cObj->checkIf($conf[($key . '.')]['if.'])) {
+					continue;
+				}
+				$ss = $conf[$key . '.']['external'] ? $JSfile : $GLOBALS['TSFE']->tmpl->getFileName($JSfile);
+				if ($ss) {
+					$jsFileConfig = $conf[$key . '.'];
+					$type = $jsFileConfig['type'];
+					if (!$type) {
+						$type = 'text/javascript';
+					}
+
+					$pageRenderer->addJsLibrary(
+						$key,
+						$ss,
+						$type,
+						empty($jsFileConfig['disableCompression']),
+						$jsFileConfig['forceOnTop'] ? TRUE : FALSE,
+						$jsFileConfig['allWrap'],
+						$jsFileConfig['excludeFromConcatenation'] ? TRUE : FALSE,
+						$jsFileConfig['allWrap.']['splitChar']
+					);
+					unset($jsFileConfig);
+				}
+			}
+		}
+	}
+
+	protected function INLINEJS(array $conf) {
+		$content = '';
+		if (isset($conf['value'])) {
+			$content = $conf['value'];
+			unset($conf['value']);
+		}
+		if (isset($conf['value.'])) {
+			$content = $this->cObj->stdWrap($content, $conf['value.']);
+			unset($conf['value.']);
+		}
+		if (count($conf)) {
+			$content = $this->cObj->stdWrap($content, $conf);
+		}
+
+		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($content, "content");
+		$pageRenderer->addJsInlineCode(md5($content), $content, $GLOBALS['TSFE']->config['config']['compressJs']);
+	}
+
+	protected function INCLUDECSS(array $conf) {
+		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+
+		foreach ($conf as $key => $CSSfile) {
+
+			// StdWrap the CSS file.
+			$CSSfile = $this->cObj->stdWrap($conf[$key], $conf[$key . '.']);
+
+			// If the key is numeric we should generate a new key to avoid duplication
+			if (is_numeric($key)) {
+				$key = md5($JSfile);
+			}
+
+			if (!is_array($CSSfile)) {
+				$cssFileConfig = $conf[$key . '.'];
+				if (isset($cssFileConfig['if.']) && !$GLOBALS['TSFE']->cObj->checkIf($cssFileConfig['if.'])) {
+					continue;
+				}
+				$ss = $cssFileConfig['external'] ? $CSSfile : $GLOBALS['TSFE']->tmpl->getFileName($CSSfile);
+				if ($ss) {
+					if ($cssFileConfig['import']) {
+						if (!$cssFileConfig['external'] && $ss[0] !== '/') {
+							// To fix MSIE 6 that cannot handle these as relative paths (according to Ben v Ende)
+							$ss = GeneralUtility::dirname(GeneralUtility::getIndpEnv('SCRIPT_NAME')) . '/' . $ss;
+						}
+						$pageRenderer->addCssInlineBlock('import_' . $key, '@import url("' . htmlspecialchars($ss) . '") ' . htmlspecialchars($cssFileConfig['media']) . ';', empty($cssFileConfig['disableCompression']), $cssFileConfig['forceOnTop'] ? TRUE : FALSE, '');
+					} else {
+						$pageRenderer->addCssFile(
+							$ss,
+							$cssFileConfig['alternate'] ? 'alternate stylesheet' : 'stylesheet',
+							$cssFileConfig['media'] ?: 'all',
+							$cssFileConfig['title'] ?: '',
+							empty($cssFileConfig['disableCompression']),
+							$cssFileConfig['forceOnTop'] ? TRUE : FALSE,
+							$cssFileConfig['allWrap'],
+							$cssFileConfig['excludeFromConcatenation'] ? TRUE : FALSE,
+							$cssFileConfig['allWrap.']['splitChar']
+						);
+						unset($cssFileConfig);
+					}
+				}
+			}
+		}
+	}
+
+	protected function CSSINLINE(array $conf) {
+		$content = '';
+		if (isset($conf['value'])) {
+			$content = $conf['value'];
+			unset($conf['value']);
+		}
+		if (isset($conf['value.'])) {
+			$content = $this->cObj->stdWrap($content, $conf['value.']);
+			unset($conf['value.']);
+		}
+		if (count($conf)) {
+			$content = $this->cObj->stdWrap($content, $conf);
+		}
+
+		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+		$pageRenderer->addCssInlineBlock(md5($content), $content);
+	}
+
 
 	/**
 	 * Iterates over a flexform section, returning the combined output of all
