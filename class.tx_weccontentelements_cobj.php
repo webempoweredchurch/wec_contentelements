@@ -138,7 +138,6 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 		}
 
 		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
-		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($content, "content");
 		$pageRenderer->addJsInlineCode(md5($content), $content, $GLOBALS['TSFE']->config['config']['compressJs']);
 	}
 
