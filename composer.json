@@ -1,0 +1,17 @@
+{
+  "name": "web-empowered-church/wec-contentelements",
+  "type": "typo3-cms-extension",
+  "description": "Provides additional TYPO3 content elements such as a local menu, slideshow, Vimeo video, and YouTube video.",
+  "homepage": "http://www.webempoweredchurch.org",
+  "license": ["GPL-2.0+"],
+  "keywords": ["TYPO3 CMS"],
+  "support": {
+    "issues": "http://www.webempoweredchurch.org"
+  },
+  "autoload": {
+    "psr-4": {
+      "WebEmpoweredChurch\\WecContentelements\\": "Classes/"
+    }
+  },
+  "version": "2.0.0"
+}

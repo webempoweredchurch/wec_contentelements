@@ -11,11 +11,11 @@ if (is_array($extConf) && array_key_exists('includeDefaultContentElements', $ext
 }
 
 if ($includeDefaultContentElements) {
-	tx_weccontentelements_lib::addContentElement($_EXTKEY, 'vimeo');
-	tx_weccontentelements_lib::addContentElement($_EXTKEY, 'youtube');
-	tx_weccontentelements_lib::addContentElement($_EXTKEY, 'localmenu');
-	tx_weccontentelements_lib::addContentElement($_EXTKEY, 'slideshow');
-	tx_weccontentelements_lib::addContentElement($_EXTKEY, 'filedownload');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addContentElement($_EXTKEY, 'vimeo');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addContentElement($_EXTKEY, 'youtube');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addContentElement($_EXTKEY, 'localmenu');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addContentElement($_EXTKEY, 'slideshow');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addContentElement($_EXTKEY, 'filedownload');
 }
 
 ?>

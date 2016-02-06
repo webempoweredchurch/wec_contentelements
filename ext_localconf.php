@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_content.php']['cObjTypeAndClassDefault'][] = 'tx_weccontentelements_cobj';
-$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_content.php']['getData'][] = 'tx_weccontentelements_getXMLData';
+$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_content.php']['cObjTypeAndClassDefault'][] = \WebEmpoweredChurch\WecContentelements\Hook\ContentObjectHook::class;
+$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_content.php']['getData'][] = \WebEmpoweredChurch\WecContentelements\Hook\GetDataHook::class;
 
 $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['wec_contentelements']);
 if (is_array($extConf) && array_key_exists('includeDefaultContentElements', $extConf)) {
@@ -14,11 +14,11 @@ if (is_array($extConf) && array_key_exists('includeDefaultContentElements', $ext
 }
 
 if ($includeDefaultContentElements) {
-	tx_weccontentelements_lib::addTyposcript($_EXTKEY, 'youtube');
-	tx_weccontentelements_lib::addTyposcript($_EXTKEY, 'vimeo');
-	tx_weccontentelements_lib::addTyposcript($_EXTKEY, 'localmenu');
-	tx_weccontentelements_lib::addTyposcript($_EXTKEY, 'slideshow');
-	tx_weccontentelements_lib::addTyposcript($_EXTKEY, 'filedownload');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addTyposcript($_EXTKEY, 'youtube');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addTyposcript($_EXTKEY, 'vimeo');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addTyposcript($_EXTKEY, 'localmenu');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addTyposcript($_EXTKEY, 'slideshow');
+	\WebEmpoweredChurch\WecContentelements\Utility\ContentElementUtility::addTyposcript($_EXTKEY, 'filedownload');
 }
 
 ?>

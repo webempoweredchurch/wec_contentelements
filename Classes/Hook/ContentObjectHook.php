@@ -1,6 +1,13 @@
 <?php
+namespace WebEmpoweredChurch\WecContentelements\Hook;
 
-class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
+class ContentObjectHook implements \TYPO3\CMS\Frontend\ContentObject\ContentObjectGetSingleHookInterface {
+
+	/**
+	 * Local cObject variable.
+	 *
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 */
 	protected $cObj;
 
 	/**
@@ -9,11 +16,11 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 	 * @param	string		$contentObjectName: The name of the cObject.
 	 * @param	array		$configuration: The Typoscript configuration.
 	 * @param	string		$TypoScriptKey: The key assigned to the cObject.
-	 * @param	tslib_ccObj	$parentObject: Back reference to parent cObject.
+	 * @param	\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer	$parentObject: Back reference to parent cObject.
 	 * @return	string
 	 */
-	public function getSingleContentObject($contentObjectName, array $configuration, $TypoScriptKey, tslib_cObj &$parentObject) {
-		$this->cObj =& $parentObject;
+	public function getSingleContentObject($contentObjectName, array $configuration, $TypoScriptKey, \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer &$parentObject) {
+		$this->cObj = &$parentObject;
 		switch($contentObjectName) {
 			case 'FFSECTION':
 				$content = $this->FFSECTION($configuration);
@@ -117,5 +124,3 @@ class tx_weccontentelements_cobj implements tslib_content_cObjGetSingleHook {
 		}
 	}
 }
-
-?>

@@ -1,6 +1,7 @@
 <?php
+namespace WebEmpoweredChurch\WecContentelements\Hook;
 
-class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
+class GetDataHook implements \TYPO3\CMS\Frontend\ContentObject\ContentObjectGetDataHookInterface {
 
 	/**
 	 * Extends the getData()-Method of tslib_cObj to process more/other commands
@@ -29,7 +30,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 						$sheet = 'sDEF';
 						$path = $elements[1];
 					}
-					$flexFormArray = t3lib_div::xml2array($fields[$fieldName]);
+					$flexFormArray = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($fields[$fieldName]);
 					$returnValue = $this->getFlexformValue($flexFormArray, $path, $sheet);
 					break;
 				case 'flexformsection':
@@ -72,7 +73,7 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 	public function getFlexFormValueFromSheetArray($sheetArray, $fieldNameArr, $value) {
 		$tempArr = $sheetArray;
 		foreach($fieldNameArr as $k => $v)	{
-			if (self::canBeInterpretedAsInteger($v)) {
+			if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($v)) {
 				if (is_array($tempArr))	{
 					foreach($tempArr as $index => $values) {
 						if ($index==$v)	{
@@ -92,22 +93,4 @@ class tx_weccontentelements_getXMLData implements tslib_content_getDataHook {
 		}
 	}
 
-	/**
-	 * Checks whether the provided value is an integer
-	 *
-	 * @param mixed $value
-	 * @return boolean
-	 */
-	protected function canBeInterpretedAsInteger($value) {
-		if (class_exists('TYPO3\\CMS\\Core\\Utility\\MathUtility')) {
-			$result = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($var);
-		} elseif (class_exists('t3lib_utility_Math')) {
-			$result = t3lib_utility_Math::canBeInterpretedAsInteger($var);
-		} else {
-			$result = t3lib_div::testInt($var);
-		}
-		return $result;
-	}
 }
-
-?>
