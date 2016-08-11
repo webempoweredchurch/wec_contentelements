@@ -4,7 +4,7 @@ namespace WebEmpoweredChurch\WecContentelements\Utility;
 
 class ContentElementUtility {
 
-	public function addContentElement($extensionKey, $key, $flexformPath = '', $type = '', $title = '', $description = '', $icon = '', $wizardIcon = '') {
+	public static function addContentElement($extensionKey, $key, $flexformPath = '', $type = '', $title = '', $description = '', $icon = '', $wizardIcon = '') {
 			// Set defaults for title, description, icons, and content element type.
 		$locallangPath = 'LLL:EXT:' . $extensionKey . '/' . $key . '/locallang.xml:tt_content.' . $key . '.';
 		if (!$title) {
@@ -81,7 +81,7 @@ class ContentElementUtility {
 		self::addPageTSConfig($extensionKey, $key);
 	}
 
-	public function addTyposcript($extensionKey, $key, $typoScriptPath = '') {
+	public static function addTyposcript($extensionKey, $key, $typoScriptPath = '') {
 		if (!$typoScriptPath) {
 			$typoScriptPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/content.ts';
 		}
