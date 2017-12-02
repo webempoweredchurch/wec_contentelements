@@ -99,7 +99,7 @@ class ContentElementUtility {
 		}
 	}
 
-	protected function addTypoScriptConstants($extensionKey, $key, $typoScriptPath = '') {
+	protected static function addTypoScriptConstants($extensionKey, $key, $typoScriptPath = '') {
 		if (!$typoScriptPath) {
 			$typoScriptPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/constants.ts';
 		}
@@ -113,7 +113,7 @@ class ContentElementUtility {
 		}
 	}
 
-	public function addPageTSConfig($extensionKey, $key, $pageTSConfigPath = '') {
+	public static function addPageTSConfig($extensionKey, $key, $pageTSConfigPath = '') {
 		if (!$pageTSConfigPath) {
 			$pageTSConfigPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . $key . '/pagetsconfig.ts';
 		}
@@ -133,7 +133,7 @@ class ContentElementUtility {
 	 * @param string Path to Fluid partials, relative to content element directory.
 	 * @param string Path to Fluid layouts, relative to content element directory.
 	 */
-	public function addFluid($extensionKey, $key, $file='content.html', $partialRootPath='Partials', $layoutRootPath='Layouts') {
+	public static function addFluid($extensionKey, $key, $file='content.html', $partialRootPath='Partials', $layoutRootPath='Layouts') {
 		// Loop over all the flexform variables, converting them into TypoScript cObjects.
 		$flexformVariables = self::getFlexformFieldsAsCObjects(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . '/' . $key . '/flexform.xml');
 
@@ -173,7 +173,7 @@ class ContentElementUtility {
 	 * @param string Path to the flexform file.
 	 * @return string
 	 */
-	protected function getFlexformFieldsAsCObjects($flexformPath) {
+	protected static function getFlexformFieldsAsCObjects($flexformPath) {
 		$flexform = simplexml_load_file($flexformPath);
 		$cObjects = array();
 
