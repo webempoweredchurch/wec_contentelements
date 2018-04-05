@@ -86,7 +86,7 @@ class ContentObjectHook implements \TYPO3\CMS\Frontend\ContentObject\ContentObje
 		$content = '';
 		if ($this->cObj->checkIf($conf['if.'])) {
 			$counter = 1;
-			foreach ($sectionArray as $index => $section) {
+			foreach ((array) $sectionArray as $index => $section) {
 				$GLOBALS['TSFE']->register['FFSECTION_COUNTER'] = $counter++;
 				$GLOBALS['TSFE']->register['FFSECTION_ROOTPATH'] = $conf['rootPath'] . '/' . $index;
 				$content .= $this->cObj->cObjGet($conf);
