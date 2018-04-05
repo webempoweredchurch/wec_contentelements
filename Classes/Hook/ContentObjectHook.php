@@ -37,7 +37,7 @@ class ContentObjectHook implements \TYPO3\CMS\Frontend\ContentObject\ContentObje
 	}
 
 	protected function INCLUDEJSLIBS(array $conf) {
-		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+		$pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
 
 		foreach ($conf as $key => $JSfile) {
 			if (!is_array($JSfile)) {
